@@ -39,9 +39,9 @@ setuptools.setup(
             "pet_tutorial.merlict_c89",
             sources=[
                 os.path.join(
-                    'pet_tutorial', '_merlict_c89', '_wrap.pyx'),
+                    'pet_tutorial', 'merlict_c89_wrapper', 'wrapp.pyx'),
                 os.path.join(
-                    'pet_tutorial', '_merlict_c89', '_wrap.c'),
+                    'pet_tutorial', 'merlict_c89_wrapper', 'wrapp.c'),
             ],
             include_dirs=[numpy.get_include(), "pet_tutorial"],
             language="c",
