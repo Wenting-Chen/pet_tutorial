@@ -12,3 +12,9 @@ git clone --recursive git@github.com:relleums/pet_tutorial.git
 ```
 pip install -e pet_tutorial/
 ```
+
+### Update
+```
+git pull
+git submodule update
+```
