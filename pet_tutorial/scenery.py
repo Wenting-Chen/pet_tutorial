@@ -178,26 +178,25 @@ def run(
     photons=EXAMPLE_PHOTONS,
     random_seed=1337,
     max_interactions=100,
-    tmp_dir='run_tmp'
 ):
-    os.makedirs(tmp_dir, exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix="pet_tutorial_") as tmp_dir:
 
-    with open(os.path.join(tmp_dir, "scenery.json"), "wt") as f:
-        f.write(json.dumps(scenery, indent=4))
+        with open(os.path.join(tmp_dir, "scenery.json"), "wt") as f:
+            f.write(json.dumps(scenery, indent=4))
 
-    merlict_c89_wrapper.wrapper.json_scenery_to_merlict_scenery(
-        json_in_path=os.path.join(tmp_dir, "scenery.json"),
-        merlict_out_path=os.path.join(tmp_dir, "scenery.mli"),
-        octree_out_path=os.path.join(tmp_dir, "scenery.octree.mli")
-    )
+        merlict_c89_wrapper.wrapper.json_scenery_to_merlict_scenery(
+            json_in_path=os.path.join(tmp_dir, "scenery.json"),
+            merlict_out_path=os.path.join(tmp_dir, "scenery.mli"),
+            octree_out_path=os.path.join(tmp_dir, "scenery.octree.mli")
+        )
 
-    intersection_table = merlict_c89_wrapper.wrapper.propagate(
-        scenery_path=os.path.join(tmp_dir, "scenery.mli"),
-        octree_path=os.path.join(tmp_dir, "scenery.octree.mli"),
-        object_idx=object_idx,
-        photons=photons,
-        random_seed=random_seed,
-        max_interactions=max_interactions
-    )
+        intersection_table = merlict_c89_wrapper.wrapper.propagate(
+            scenery_path=os.path.join(tmp_dir, "scenery.mli"),
+            octree_path=os.path.join(tmp_dir, "scenery.octree.mli"),
+            object_idx=object_idx,
+            photons=photons,
+            random_seed=random_seed,
+            max_interactions=max_interactions
+        )
 
-    return intersection_table
+        return intersection_table
