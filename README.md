@@ -1,7 +1,5 @@
-# merlict c89 tutorial
-On the example of an optical-bench for a positron-emission-tomography-scanner
-
-This python-package wraps the ```merlict c89``` photon-propagator.
+# Simulating the optics in positron-emission-tomography (PET)
+This python-package wraps the [```merlict_c89```](https://github.com/cherenkov-plenoscope/merlict_c89) photon-propagator.
 
 ### Download
 ```
