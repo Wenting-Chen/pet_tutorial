@@ -15,12 +15,12 @@ setuptools.setup(
     long_description_content_type='text/markdown',
     url='https://github.com/relleums/pet_tutorial',
     packages=[
-        'pet_tutorial'
+        'pet_tutorial',
+        'pet_tutorial.merlict_c89_wrapper'
     ],
     install_requires=[
         'setuptools>=18.0',
         'cython',
-        'scipy',
     ],
     classifiers=[
         "Programming Language :: Python :: 3",
@@ -36,16 +36,19 @@ setuptools.setup(
     python_requires='>=3',
     ext_modules=[
         setuptools.Extension(
-            "pet_tutorial.merlict_c89",
+            "pet_tutorial.merlict_c89_wrapper.wrapper",
             sources=[
                 os.path.join(
-                    'pet_tutorial', 'merlict_c89_wrapper', 'wrapp.pyx'),
+                    'pet_tutorial',
+                    'merlict_c89_wrapper',
+                    'wrapper.pyx'),
                 os.path.join(
-                    'pet_tutorial', 'merlict_c89_wrapper', 'wrapp.c'),
+                    'pet_tutorial',
+                    'merlict_c89_wrapper',
+                    'merlict_c89_wrapper.c'),
             ],
             include_dirs=[numpy.get_include(), "pet_tutorial"],
             language="c",
         ),
     ],
 )
-
