@@ -165,6 +165,7 @@ EXAMPLE_SCENERY = {
     ]
 }
 
+
 EXAMPLE_PHOTONS = photon_source.isotrop_point_source(
     emission_position=[0, 0, -4],
     num_photons=10000
