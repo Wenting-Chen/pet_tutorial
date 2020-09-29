@@ -8,7 +8,7 @@ git clone --recursive git@github.com:relleums/pet_tutorial.git
 
 ### Install
 ```
-pip install -e pet_tutorial/
+pip3 install -e pet_tutorial/
 ```
 
 ### Update
