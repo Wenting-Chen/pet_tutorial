@@ -14,8 +14,8 @@ import tqdm
 # initial input parameters
 NUM = 4 #crystal nunmber each line
 disk_num = 2 #silicon PM each line
-#Thickness_loop = np.array([2.0, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9, 3.0]) #in mm
-Thickness_loop = np.array([2.1, 2.15, 2.6, 2.59, 2.98, 3.0])
+Thickness_loop = np.array([2.0, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9, 3.0]) #in mm #Thickness_loop = np.array([2.1, 2.15, 2.6, 2.59, 2.98, 3.0])
+
 PM_edge = 4e-3
 x_crystal_max = 0.00305 #crystal edge
 y_crystal_max = 0.00305
@@ -27,7 +27,7 @@ N_GAMMA_RAYS = 150
 disk_orig = ((0.003051*NUM-1e-6)-PM_edge*disk_num)/(disk_num*2)
 
 
-for Th_id in range(5):
+for Th_id in range(11):
     LIGHT_GUIDE_THICKNESS = Thickness_loop[Th_id]*1e-3 
 
     with open("edit1_4mmPM_new.json", "r") as my_file:
@@ -60,7 +60,7 @@ for Th_id in range(5):
                 [0.003051*NUM-1e-6, 0.003051*NUM-1e-6, -LIGHT_GUIDE_THICKNESS]
     ]
 
-    SINGLE_LYSO_SCENERY['children'][3]["pos"]=[disk_orig,disk_orig, -LIGHT_GUIDE_THICKNESS+1e-6]
+    SINGLE_LYSO_SCENERY['children'][3]["pos"]=[disk_orig,disk_orig, -LIGHT_GUIDE_THICKNESS+1e-6] #SiPM inside Light guide, 1 micrometer gap
 
     #
     for disk_id in range(disk_num*disk_num-1):
@@ -71,27 +71,27 @@ for Th_id in range(5):
         DISK_SCENERY['pos']= [(PM_edge+2*disk_orig)*disk_x,(PM_edge+2*disk_orig)*disk_y,0]
         SINGLE_LYSO_SCENERY['children'][3]['children'].append(DISK_SCENERY)
     #
-    with open('fine_4mmPM_new_complete_scenery%1.0f.json'%(Th_id),'wt') as net_file:
-        json.dump(SINGLE_LYSO_SCENERY,net_file,indent=4)
+    #with open('fine_4mmPM_new_complete_scenery%1.0f.json'%(Th_id),'wt') as net_file:
+    #    json.dump(SINGLE_LYSO_SCENERY,net_file,indent=4)
 
 
 
-    RANDOM_SEED = 1 #Problem in loop!!?? 
-    MAX_INTERACTIONS = 100 #1000
+    RANDOM_SEED = 1 
+    MAX_INTERACTIONS = 100 
 
     # photon src at center of lyso cube
     QUANTUM_EFFICIENCY = 0.25
     N_PHOTONS_LYSO = 17000 
     N_PHOTONS = int(17000 * QUANTUM_EFFICIENCY)
     CENTER_POINT_SRC = photon_source.isotrop_point_source(
-        emission_position=[0.005, 0.005, 0.005],    # change to random position ???
+        emission_position=[0.005, 0.005, 0.005],    
         num_photons=N_PHOTONS  # close to saint gobain data sheet for 511keV LYSO
     )
 
     def run(
         scenery=SINGLE_LYSO_SCENERY,
         object_idx=999,  # the disk beneath
-        photons=CENTER_POINT_SRC,       # change to random position ???
+        photons=CENTER_POINT_SRC,      
         random_seed=RANDOM_SEED,
         max_interactions=MAX_INTERACTIONS,
     ):
@@ -123,7 +123,7 @@ for Th_id in range(5):
     index = 0
 
     for gamma_ray_id in tqdm.tqdm(range(N_GAMMA_RAYS)):
-        for cryid in range(0,NUM*NUM,1): # attention: must add crystal_x = 0 and crystal_y=0 later
+        for cryid in range(0,NUM*NUM,1): 
             for sipmid in range(0,disk_num*disk_num,1):
                 np.random.seed(RANDOM_SEED+cryid+gamma_ray_id) # always the same for a single hit, but increases when changing from crystal to crystal
                 
