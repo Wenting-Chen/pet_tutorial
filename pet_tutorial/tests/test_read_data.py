@@ -16,15 +16,15 @@ NUM = 4
 #Thickness_loop = np.array([ 0.5, 0.75, 0.85, 1.0, 1.1, 1.25, 1.3, 1.5, 1.6, 1.75, 1.8, 1.9, 2.0, 2.1, 2.15, 2.2, 2.25, 2.3, 2.35, 2.4, 2.45, 2.5, 2.55, 2.6, 2.7, 2.75, 2.8, 2.9, 3.0]) #loop over Thickness of Light Guide
 #Thickness_loop = np.array([ 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0, 2.25, 2.45, 2.5, 2.55, 2.6, 2.7, 2.75, 2.8, 2.9, 3.0]) #loop over Thickness of Light Guide
 #Thickness_loop = np.array([ 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0, 2.25, 2.5, 2.75, 3.0]) #loop over Thickness of Light Guide
-Thickness_loop = np.array([ 2.0, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9, 3.0])
+Thickness_loop = np.array([ 2.0, 2.1, 2.15, 2.2, 2.3, 2.4, 2.5, 2.59, 2.6, 2.7, 2.8, 2.9, 3.0])
 
-index = 11#17
+index = 13#17
 CH_score = np.zeros(index)
 SC_score = np.zeros(index)
 N_GAMMA_RAYS = 150
 N_ph = np.zeros(index)
 
-for Th_id in range(11):
+for Th_id in range(index):
     LIGHT_GUIDE_THICKNESS = Thickness_loop[Th_id]*1e-3 
 
     data = np.loadtxt( "./data_R_collection/N%d_events_data%1.2fmm_4mmPM.dat"%(N_GAMMA_RAYS, Thickness_loop[Th_id]))
